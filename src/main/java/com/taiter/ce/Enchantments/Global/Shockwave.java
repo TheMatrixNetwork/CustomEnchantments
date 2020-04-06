@@ -49,7 +49,7 @@ public class Shockwave extends CEnchantment {
         configEntries.put("ForbiddenMaterials", Material.BEDROCK.name() + "," + Material.WATER.name() + "," + Material.LAVA.name() + "," +
                 Material.CACTUS.name() + "," + Material.CAKE.name() + "," + Material.WHEAT.name() + "," + Material.END_PORTAL.name() + "," +
                 Material.MOVING_PISTON.name() + "," + Material.MELON_STEM.name() + "," + Material.NETHER_WART.name() + "," + Material.SPAWNER.name() + "," +
-                Material.SIGN + "," + Material.WALL_SIGN + "," + Material.PLAYER_HEAD.name() + "," + Material.PLAYER_WALL_HEAD);
+                Material.PLAYER_HEAD.name() + "," + Material.PLAYER_WALL_HEAD);
         triggers.add(Trigger.DAMAGE_GIVEN);
     }
 

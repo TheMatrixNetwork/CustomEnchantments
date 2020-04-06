@@ -34,11 +34,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class Powergloves extends CItem {
 
-	/* 投擲速度倍率 */
 	int	ThrowSpeedMultiplier;
-	/* 舉起後多久可以投擲 */
 	int	ThrowDelayAfterGrab;
-	/* 最大舉起時間 */
 	int MaxGrabTicks;
     public static String POWERGLOVES_META_KEY = "ce.Powergloves";
 
@@ -59,10 +56,8 @@ public class Powergloves extends CItem {
             e.setCancelled(true);
             final Entity clicked = e.getRightClicked();
 
-            /* 假如玩家沒有Powergloves的Metadata */
             if (!hasCooldown(player, POWERGLOVES_META_KEY)) {
 
-                /* 假如目標 [ 是生物實體 & 不是死的 & 自己不是騎乘者 & 沒有騎乘者 ] */
                 if (clicked instanceof LivingEntity && !clicked.isDead() && !clicked.getPassengers().contains(player) && player.getPassengers().isEmpty() && player.addPassenger(clicked)) {
                     player.getWorld().playEffect(player.getLocation(), Effect.ZOMBIE_CHEW_IRON_DOOR, 10);
 

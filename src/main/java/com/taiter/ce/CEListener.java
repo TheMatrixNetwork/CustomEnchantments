@@ -94,11 +94,11 @@ public class CEListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void inventoryMenuPrevention(InventoryDragEvent event) {
         if (event.getView().getTopInventory().getHolder() instanceof CeInventoryHolder) {
-            if (event.getView().getTopInventory().getTitle().startsWith("CE")) {
+            if (event.getView().getTitle().startsWith("CE")) {
                 event.setCancelled(true);
             } else if (useRuneCrafting) {
                 if (event.getView().getTopInventory().getHolder() == null && runecrafting.contains(event.getWhoClicked().getUniqueId()) &&
-                        event.getView().getTopInventory().getName().equals("§d§kabc§5 Runecrafting §d§kcba")) {
+                        event.getView().getTitle().equals("§d§kabc§5 Runecrafting §d§kcba")) {
                     CEventHandler.updateRunecraftingInventory(event.getInventory());
                     return;
                 }
@@ -116,7 +116,7 @@ public class CEListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void inventoryClose(InventoryCloseEvent event) {
         if (event.getView().getTopInventory().getHolder() == null && runecrafting.contains(event.getPlayer().getUniqueId())
-                && event.getInventory().getName()
+                && event.getView().getTitle()
                 .equals("§d§kabc§5 Runecrafting §d§kcba")) {
             runecrafting.remove(event.getPlayer().getUniqueId());
             ItemStack[] contents = event.getInventory().getContents();
@@ -143,7 +143,7 @@ public class CEListener implements Listener {
 
         if (useRuneCrafting)
             if (event.getView().getTopInventory().getHolder() == null && runecrafting.contains(event.getWhoClicked().getUniqueId())
-                    && event.getView().getTopInventory().getName().equals("§d§kabc§5 Runecrafting §d§kcba")) {
+                    && event.getView().getTitle().equals("§d§kabc§5 Runecrafting §d§kcba")) {
                 CEventHandler.handleRunecrafting(event);
                 return;
             }
@@ -156,15 +156,15 @@ public class CEListener implements Listener {
                     toTest = event.getCursor();
                 else
                     return;
-            if (toTest != null && !toTest.getType().equals(Material.AIR) && toTest.hasItemMeta()) {
-                if (EnchantManager.isEnchantmentBook(toTest))
-                    event.getWhoClicked().sendMessage(ChatColor.RED + "The book is being repulsed by the Anvil");
-                else if (EnchantManager.hasEnchantments(toTest))
-                    event.getWhoClicked().sendMessage(ChatColor.RED + "The item is being repulsed by the Anvil");
-                else
-                    return;
-                event.setCancelled(true);
-            }
+//            if (toTest != null && !toTest.getType().equals(Material.AIR) && toTest.hasItemMeta()) {
+//                if (EnchantManager.isEnchantmentBook(toTest))
+//                    event.getWhoClicked().sendMessage(ChatColor.RED + "The book is being repulsed by the Anvil");
+//                else if (EnchantManager.hasEnchantments(toTest))
+//                    event.getWhoClicked().sendMessage(ChatColor.RED + "The item is being  by the Anvil");
+//                else
+//                    return;
+//                event.setCancelled(true);
+//            }
             return;
         }
 
@@ -172,7 +172,7 @@ public class CEListener implements Listener {
             return;
 
         if (event.getView().getTopInventory().getHolder() instanceof CeInventoryHolder
-                && event.getView().getTopInventory().getTitle().startsWith("CE")) {
+                && event.getView().getTitle().startsWith("CE")) {
             Inventory topInv = event.getView().getTopInventory();
             final Player p = (Player) event.getWhoClicked();
             ItemStack clickedItem = event.getCurrentItem();
@@ -183,7 +183,7 @@ public class CEListener implements Listener {
             // inventory
             if ((event.getRawSlot() == topInv.getSize() - 1)) {
                 p.closeInventory();
-                p.openInventory(Tools.getPreviousInventory(topInv.getTitle()));
+                p.openInventory(Tools.getPreviousInventory(event.getView().getTitle()));
                 return;
             }
 
@@ -191,14 +191,14 @@ public class CEListener implements Listener {
 
                 // Opens the clicked Enchantments inventory and loads the
                 // permissions if needed
-                if (topInv.getTitle().equals(Tools.prefix + "Enchantments")) {
+                if (event.getView().getTitle().equals(Tools.prefix + "Enchantments")) {
                     p.closeInventory();
                     p.openInventory(Tools.getEnchantmentMenu(p, clickedItem.getItemMeta().getDisplayName()));
                     return;
                 }
 
                 // Opens the item inventory and loads the permissions if needed
-                if (topInv.getTitle().equals(Tools.prefix + "Main Menu"))
+                if (event.getView().getTitle().equals(Tools.prefix + "Main Menu"))
                     if (event.getRawSlot() == 4) {
                         p.closeInventory();
                         p.openInventory(Tools.getItemMenu(p));
@@ -217,8 +217,8 @@ public class CEListener implements Listener {
                 // These are the specific menus, clicking one of them will lead
                 // to the enchanting menu, which needs to be 'notified' of the
                 // enchantment to give and it's cost
-                if (topInv.getTitle().equals(Tools.prefix + "Global") || topInv.getTitle().equals(Tools.prefix + "Bow") || topInv.getTitle().equals(Tools.prefix + "Armor")
-                        || topInv.getTitle().equals(Tools.prefix + "Helmet") || topInv.getTitle().equals(Tools.prefix + "Boots") || topInv.getTitle().equals(Tools.prefix + "Tool"))
+                if (event.getView().getTitle().equals(Tools.prefix + "Global") || event.getView().getTitle().equals(Tools.prefix + "Bow") || event.getView().getTitle().equals(Tools.prefix + "Armor")
+                        || event.getView().getTitle().equals(Tools.prefix + "Helmet") || event.getView().getTitle().equals(Tools.prefix + "Boots") || event.getView().getTitle().equals(Tools.prefix + "Tool"))
                     if (p.isOp() || Tools.checkPermission(EnchantManager.getEnchantment(clickedItem.getItemMeta().getDisplayName()), p)) {
                         Inventory levelMenu = Bukkit.createInventory(new CeInventoryHolder(), 9, Tools.prefix + "Level selection");
 
@@ -262,7 +262,7 @@ public class CEListener implements Listener {
                         return;
                     }
 
-                if (topInv.getTitle().equals(Tools.prefix + "Items")) {
+                if (event.getView().getTitle().equals(Tools.prefix + "Items")) {
                     CItem ci = Tools.getItemByDisplayname(clickedItem.getItemMeta().getDisplayName());
                     if (!p.hasPermission("ce.item.*") && !p.hasPermission("ce.item." + ci.getPermissionName())) {
                         p.sendMessage(ChatColor.RED + "You do not have permission to buy this Item!");
@@ -304,7 +304,7 @@ public class CEListener implements Listener {
                     }
                 }
 
-                if (topInv.getTitle().equals(Tools.prefix + "Level selection")) {
+                if (event.getView().getTitle().equals(Tools.prefix + "Level selection")) {
                     String enchantmentName = clickedItem.getItemMeta().getDisplayName();
                     CEnchantment ce = EnchantManager.getEnchantment(enchantmentName);
                     int level = EnchantManager.getLevel(enchantmentName);
