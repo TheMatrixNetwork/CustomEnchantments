@@ -63,7 +63,7 @@ public class CEventHandler extends BukkitRunnable{
                         if (EnchantManager.containsEnchantment(s, (CEnchantment) c) && slot.isValid((CEnchantment) c)) {
                             int level = EnchantManager.getLevel(s);
                             for (PotionEffectType pt : c.getPotionEffectsOnWear().keySet()) {
-                                Tools.addPotionEffect(player, new PotionEffect(pt, 340, c.getPotionEffectsOnWear().get(pt) + level - 2));
+                                Tools.addPotionEffect(player, new PotionEffect(pt, 680, c.getPotionEffectsOnWear().get(pt) + level - 2));
                             }
                         }
                     }
