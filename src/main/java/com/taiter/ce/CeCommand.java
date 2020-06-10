@@ -583,8 +583,8 @@ public class CeCommand {
                         if (level < 0)
                             level *= -1;
 
-                        if (level > 10)
-                            level = 0;
+//                        if (level > 10)
+//                            level = 0;
 
                         if (args.length > start)
                             for (int i = start; i < (level == 0 ? args.length : args.length - 1); i++)

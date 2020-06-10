@@ -304,6 +304,8 @@ public class EnchantManager {
             level = "IX";
         else if (i == 10)
             level = "X";
+        else
+            level = "" + i;
 
         return level;
     }
@@ -330,6 +332,10 @@ public class EnchantManager {
             intLevel = 9;
         else if (level.equals("X"))
             intLevel = 10;
+        else
+            try {
+                intLevel = Integer.parseInt(level);
+            } catch (Exception ignore) { }
 
         return intLevel;
     }

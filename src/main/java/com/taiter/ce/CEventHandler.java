@@ -62,6 +62,8 @@ public class CEventHandler extends BukkitRunnable{
                     if (c instanceof CEnchantment) {
                         if (EnchantManager.containsEnchantment(s, (CEnchantment) c) && slot.isValid((CEnchantment) c)) {
                             int level = EnchantManager.getLevel(s);
+                            if (s.contains("Glowing"))
+                                    level = 1;
                             for (PotionEffectType pt : c.getPotionEffectsOnWear().keySet()) {
                                 Tools.addPotionEffect(player, new PotionEffect(pt, 680, c.getPotionEffectsOnWear().get(pt) + level - 2));
                             }

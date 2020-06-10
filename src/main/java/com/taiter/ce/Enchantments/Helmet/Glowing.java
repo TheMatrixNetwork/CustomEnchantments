@@ -35,7 +35,6 @@ public class Glowing extends CEnchantment {
 	public Glowing(EnchantmentTarget app) {
 		super(app);		
 		triggers.add(Trigger.WEAR_ITEM);
-		this.resetMaxLevel();
 	}
 
 	@Override
