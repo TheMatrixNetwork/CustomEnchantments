@@ -1,20 +1,12 @@
 package com.taiter.ce.Enchantments;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-
+import com.taiter.ce.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.taiter.ce.Main;
+import java.util.*;
 
 /*
 * This file is part of Custom Enchantments

@@ -47,6 +47,7 @@ public class Wither extends CEnchantment {
 	@Override
 	public void effect(Event e, ItemStack item, int level) {
 		EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) e;
+		if (!(event.getEntity() instanceof LivingEntity)) return;
 		LivingEntity target = (LivingEntity) event.getEntity();
 
 		Tools.addPotionEffect(target, new PotionEffect(PotionEffectType.WITHER, duration * level, strength + level));
