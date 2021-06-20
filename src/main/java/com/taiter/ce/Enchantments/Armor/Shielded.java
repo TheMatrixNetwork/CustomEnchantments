@@ -41,8 +41,8 @@ public class Shielded extends CEnchantment {
 
     static {
         try {
-            getAbsorptionHearts = ReflectionHelper.getNMSClass("EntityHuman").getDeclaredMethod("getAbsorptionHearts", new Class[0]);
-            setAbsorptionHearts = ReflectionHelper.getNMSClass("EntityHuman").getDeclaredMethod("setAbsorptionHearts", float.class);
+            getAbsorptionHearts = ReflectionHelper.getClass("net.minecraft.world.entity.player.EntityHuman").getDeclaredMethod("getAbsorptionHearts", new Class[0]);
+            setAbsorptionHearts = ReflectionHelper.getClass("net.minecraft.world.entity.player.EntityHuman").getDeclaredMethod("setAbsorptionHearts", float.class);
         } catch (NoSuchMethodException | SecurityException e) {
             e.printStackTrace();
         }
