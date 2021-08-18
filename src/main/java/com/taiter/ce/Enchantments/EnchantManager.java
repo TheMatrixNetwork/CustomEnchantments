@@ -275,62 +275,124 @@ public class EnchantManager {
         return level;
     }
 
+    public static LinkedHashMap<String, Integer> roman_numerals = new LinkedHashMap<String, Integer>() {{
+            put("M", 1000);
+            put("CM", 900);
+            put("D", 500);
+            put("CD", 400);
+            put("C", 100);
+            put("XC", 90);
+            put("L", 50);
+            put("XL", 40);
+            put("X", 10);
+            put("IX", 9);
+            put("V", 5);
+            put("IV", 4);
+            put("I", 1);
+        }};
+
     public static String intToLevel(int i) {
-        String level = "I";
-
-        if (i == 2)
-            level = "II";
-        else if (i == 3)
-            level = "III";
-        else if (i == 4)
-            level = "IV";
-        else if (i == 5)
-            level = "V";
-        else if (i == 6)
-            level = "VI";
-        else if (i == 7)
-            level = "VII";
-        else if (i == 8)
-            level = "VIII";
-        else if (i == 9)
-            level = "IX";
-        else if (i == 10)
-            level = "X";
-        else
-            level = "" + i;
-
-        return level;
+        String res = "";
+        for(Map.Entry<String, Integer> entry : roman_numerals.entrySet()){
+            int matches = i/entry.getValue();
+            res += repeat(entry.getKey(), matches);
+            i = i % entry.getValue();
+        }
+        return res;
     }
 
-    public static int levelToInt(String level) {
-        level = level.toUpperCase();
-        int intLevel = 1;
-
-        if (level.equals("II"))
-            intLevel = 2;
-        else if (level.equals("III"))
-            intLevel = 3;
-        else if (level.equals("IV"))
-            intLevel = 4;
-        else if (level.equals("V"))
-            intLevel = 5;
-        else if (level.equals("VI"))
-            intLevel = 6;
-        else if (level.equals("VII"))
-            intLevel = 7;
-        else if (level.equals("VIII"))
-            intLevel = 8;
-        else if (level.equals("IX"))
-            intLevel = 9;
-        else if (level.equals("X"))
-            intLevel = 10;
-        else
-            try {
-                intLevel = Integer.parseInt(level);
-            } catch (Exception ignore) { }
-
-        return intLevel;
+    public static String repeat(String s, int n) {
+        if(s == null) {
+            return null;
+        }
+        final StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < n; i++) {
+            sb.append(s);
+        }
+        return sb.toString();
     }
+
+//    public static String intToLevel(int i) {
+//        String level;
+//
+//        if (i == 1)
+//            level = "I";
+//        else if (i == 2)
+//            level = "II";
+//        else if (i == 3)
+//            level = "III";
+//        else if (i == 4)
+//            level = "IV";
+//        else if (i == 5)
+//            level = "V";
+//        else if (i == 6)
+//            level = "VI";
+//        else if (i == 7)
+//            level = "VII";
+//        else if (i == 8)
+//            level = "VIII";
+//        else if (i == 9)
+//            level = "IX";
+//        else if (i == 10)
+//            level = "X";
+//        else
+//            level = "" + i;
+//
+//        return level;
+//    }
+
+    public static int levelToInt(String number) {
+        if (number.isEmpty()) return 0;
+        try {
+            return Integer.parseInt(number);
+        } catch (NumberFormatException ignore) { }
+        if (number.startsWith("M")) return 1000 + levelToInt(number.substring(1));
+        if (number.startsWith("CM")) return 900 + levelToInt(number.substring(2));
+        if (number.startsWith("D")) return 500 + levelToInt(number.substring(1));
+        if (number.startsWith("CD")) return 400 + levelToInt(number.substring(2));
+        if (number.startsWith("C")) return 100 + levelToInt(number.substring(1));
+        if (number.startsWith("XC")) return 90 + levelToInt(number.substring(2));
+        if (number.startsWith("L")) return 50 + levelToInt(number.substring(1));
+        if (number.startsWith("XL")) return 40 + levelToInt(number.substring(2));
+        if (number.startsWith("X")) return 10 + levelToInt(number.substring(1));
+        if (number.startsWith("IX")) return 9 + levelToInt(number.substring(2));
+        if (number.startsWith("V")) return 5 + levelToInt(number.substring(1));
+        if (number.startsWith("IV")) return 4 + levelToInt(number.substring(2));
+        if (number.startsWith("I")) return 1 + levelToInt(number.substring(1));
+        throw new IllegalArgumentException(String.format("Could not process roman numeral of '%s'", number));
+    }
+
+//    public static int levelToInt(String level) {
+//        level = level.toUpperCase();
+//        int intLevel = 1;
+//
+//        if (level.equals("I"))
+//            intLevel = 1;
+//        else if (level.equals("II"))
+//            intLevel = 2;
+//        else if (level.equals("III"))
+//            intLevel = 3;
+//        else if (level.equals("IV"))
+//            intLevel = 4;
+//        else if (level.equals("V"))
+//            intLevel = 5;
+//        else if (level.equals("VI"))
+//            intLevel = 6;
+//        else if (level.equals("VII"))
+//            intLevel = 7;
+//        else if (level.equals("VIII"))
+//            intLevel = 8;
+//        else if (level.equals("IX"))
+//            intLevel = 9;
+//        else if (level.equals("X"))
+//            intLevel = 10;
+//        else
+//            try {
+//                intLevel = Integer.parseInt(level);
+//            } catch (Exception ignore) { }
+//
+//        return intLevel;
+//    }
 
     public static String getEnchantBookName() {
         return enchantBookName;

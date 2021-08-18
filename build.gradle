@@ -36,6 +36,3 @@ dependencies {
         exclude group: 'org.bukkit', module: 'bukkit'
     }
 }
-compileJava {
-    options.compilerArgs += ["-Xlint:deprecation", "-Xlint:unchecked"]
-}
