@@ -154,9 +154,7 @@ public final class Main extends JavaPlugin {
 
         try {
             writePermissions();
-        } catch (IllegalArgumentException ex) {
-            ex.printStackTrace();
-        }
+        } catch (IllegalArgumentException ignore) {}
 
         Tools.generateInventories();
 
