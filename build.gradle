@@ -1,23 +1,23 @@
 apply plugin: 'java'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 17
+targetCompatibility = 17
 
 ext.majorVersion = 2
 ext.minorVersion = "4c"
-ext.minecraftVersion = "1.17"
+ext.minecraftVersion = "1.18"
 
 repositories {
-    jcenter()
+    mavenCentral()
 
     maven {
         name 'Spigot'
         url 'https://hub.spigotmc.org/nexus/content/groups/public/'
     }
-    
+
     maven {
         name 'sk89q'
-        url 'https://maven.sk89q.com/artifactory/repo/'
+        url 'https://maven.enginehub.org/repo/'
     }
     
     maven {
@@ -27,12 +27,9 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT'
-    implementation ('net.milkbowl.vault:VaultAPI:1.7') {
-        transitive = false
-    }
-    implementation('com.sk89q.worldguard:worldguard-legacy:7.0.0-SNAPSHOT') {
-        //transitive = false
-        exclude group: 'org.bukkit', module: 'bukkit'
-    }
+    implementation 'org.spigotmc:spigot-api:1.18-R0.1-SNAPSHOT'
+    implementation ('net.milkbowl.vault:VaultAPI:1.7') { transitive = false }
+    implementation 'com.sk89q.worldguard:worldguard-core:7.0.6'
+    implementation 'com.sk89q.worldguard:worldguard-bukkit:7.0.6'
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 }
